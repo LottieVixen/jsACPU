@@ -1,6 +1,20 @@
+//node stuff
+var fs = require('fs');
+var file = 'nop.bin';
+
+var memspace;
+
+fs.readFile(file,function(err,data){
+	if (!err) {
+		memspace = data;
+	} else {
+		console.log(err);
+	}
+})
+
 //Generate memory array buffer, 8*0xff
-var memspace 	//= new ArrayBuffer(0xff); //make arraybuffer (bytes) in size
-var mem 		//= Uint8Array(memspace); //make array split into 8bit chunks
+//var memspace 	//= new ArrayBuffer(0xff); //make arraybuffer (bytes) in size
+var mem 		= Uint8Array(memspace); //make array split into 8bit chunks
 
 //make CPU class
 class CPU {
@@ -30,10 +44,5 @@ class CPU {
 	}
 }
 
-fetch("./nop.bin")
-	.then((response) => response.arrayBuffer())
-	.then((arrayBuffer) => {
-		mem = Uint8Array(arrayBuffer);
-		let cpu = new CPU();
-		cpu.run();
-	})
+let cpu = new CPU();
+cpu.run();
