@@ -1,6 +1,6 @@
 //node stuff
 var fs = require('fs');
-var file = 'nop.bin';
+var file = './nop.bin';
 
 var memspace;
 
@@ -9,12 +9,13 @@ fs.readFile(file,function(err,data){
 		memspace = data;
 	} else {
 		console.log(err);
+		process.exit(1);
 	}
 })
 
 //Generate memory array buffer, 8*0xff
 //var memspace 	//= new ArrayBuffer(0xff); //make arraybuffer (bytes) in size
-var mem 		= Uint8Array(memspace); //make array split into 8bit chunks
+var mem 		= new Uint8Array(memspace); //make array split into 8bit chunks
 
 //make CPU class
 class CPU {
@@ -31,16 +32,16 @@ class CPU {
 		var C = mem[instr+2];
 		if (!(A+B)){
 			if (C==(instr+2)){ //if C points to it's own position
-				halt();
+				this.halt();
 			}
 		} else {
 			mem[instr+1] = A;
 		}
-		execute(C);
+		this.execute(C);
 	}
 	run() {
 		let instruction = mem[this.start];
-		execute(instruction);
+		this.execute(instruction);
 	}
 }
 
