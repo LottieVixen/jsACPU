@@ -4,15 +4,9 @@ var file = './nop.bin';
 
 var memspace;
 
-fs.readFile(file,function(err,data){
-	if (!err) {
-		memspace = data;
-	} else {
-		console.log(err);
-		process.exit(1);
-	}
-})
-
+data = fs.readFileSync(file);
+console.log("data read");
+memspace = data;
 //Generate memory array buffer, 8*0xff
 //var memspace 	//= new ArrayBuffer(0xff); //make arraybuffer (bytes) in size
 var mem 		= new Uint8Array(memspace); //make array split into 8bit chunks
@@ -30,6 +24,7 @@ class CPU {
 		var A = mem[instr];
 		var B = mem[instr+1];
 		var C = mem[instr+2];
+		console.log(`A = ${A}, B = ${B}, C = ${C}`);
 		if (!(A+B)){
 			if (C==(instr+2)){ //if C points to it's own position
 				this.halt();
