@@ -1,0 +1,56 @@
+ACPU Specification
+Version 0.1
+
+
+
+=== SUMMARY ==================================================================
+
+* 8 bit words
+* 0xFF words of ram
+
+ACPU [Akari CPU] is a virtual one, and as far as I know, never existed in
+hardware form at least not under the same name.
+It was written for me as a challenge, the sole purpose of it being for me to
+learn and to run BBJ [Byte Byte Jump] programs.
+
+Memory locations will be indicated with square brackets so `[0x00]` means at
+the first location in memory.
+
+=== INSTRUCTIONS =============================================================
+
+The instructions format is 3 words long.
+Since there are only two instructions there aren't any opcodes.
+(You'll see why!)
+
++--- Instruction Structure +
+|Part A  |Part B  |Part C  |
++--------+--------+--------+
+|aaaaaaaa|bbbbbbbb|cccccccc|
++--------+--------+--------+
+
+=== BASIC OPERATION ==========================================================
+
+Under normal operation given
+
++--- RAM -------------+
+|Line #|A   |B   |C   |
++------+----+----+----+
+|0x00  |0x01|0x00|0x00|
++------+----+----+----+
+
+BBJ Spec states A [0x00]is copied to B [0x01] and then jump to C [0x02]
+So after the first cycle is complete we end up with:
+
++--- RAM -------------+
+|Line #|A   |B   |C   |
++------+----+----+----+
+|0x00  |0x01|0x01|0x00|
++------+----+----+----+
+
+The issue is now, it will stay like this forever, to stop this from happening
+there is a HALT also!
+
+=== THE HALT =================================================================
+
+If both A and B are zero and C points to itself C == [0x02] in the above
+example, the CPU will stop execution and memory dumped to an available output.
