@@ -18,13 +18,15 @@ class CPU {
 	}
 	halt(){
 		//not implimented properly, at all
+		//MEMDUMP!
+		console.log(mem);
 		process.exit(0);
 	}
 	execute(instr){
 		var A = mem[instr];
 		var B = mem[instr+1];
 		var C = mem[instr+2];
-		console.log(`A = ${A}, B = ${B}, C = ${C}`);
+		//console.log(`A = ${A}, B = ${B}, C = ${C}`);
 		if (!(A+B)){
 			if (C==(instr+2)){ //if C points to it's own position
 				this.halt();
