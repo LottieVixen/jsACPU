@@ -7,7 +7,10 @@ class CPU {
 	constructor(){
 		this.start = 0x00;
 	}
-	halt(){}
+	halt(){
+		//not implimented properly, at all
+		process.exit(0);
+	}
 	execute(instr){
 		var A = mem[instr];
 		var B = mem[instr+1];
@@ -16,7 +19,10 @@ class CPU {
 			if (C==(instr+2)){ //if C points to it's own position
 				halt();
 			}
+		} else {
+			mem[instr+1] = A;
 		}
+		execute(C);
 	}
 	run() {
 		let instruction = mem[this.start];
