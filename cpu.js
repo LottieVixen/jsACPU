@@ -1,3 +1,6 @@
+/*
+* Akari CPU v0.1
+*/
 //node stuff
 var fs = require('fs');
 var file = './nop.bin';
