@@ -2,18 +2,20 @@
 * Akari CPU v0.1
 */
 //node stuff
+//== eventually offload this to loader.js and
 var fs = require('fs');
 var file = './nop.bin';
 
 var memspace;
-
+//load data to var
 data = fs.readFileSync(file);
 console.log("data read");
 memspace = data;
-//Generate memory array buffer, 8*0xff
+//generate memory array buffer, 8*0xff
 //var memspace 	//= new ArrayBuffer(0xff); //make arraybuffer (bytes) in size
 var mem 		= new Uint8Array(memspace); //make array split into 8bit chunks
 
+//== eventually offload this to cpu.js
 //make CPU class
 class CPU {
 	constructor(){
@@ -45,5 +47,7 @@ class CPU {
 	}
 }
 
+
+//== eventually offload this to init.js
 let cpu = new CPU();
 cpu.run();
